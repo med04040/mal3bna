@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملف الشخصي - موقع كرة القدم العربي</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.png" alt="شعار الموقع">
+                <span>كرة القدم العربي</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">الرئيسية</a>
+                <a href="leagues.html">البطولات</a>
+                <a href="videos.html">الفيديو</a>
+                <a href="analytics.html">التحليلات</a>
+                <div class="user-menu">
+                    <button class="user-avatar" id="userMenuButton">
+                        <img src="assets/images/default-avatar.png" alt="صورة المستخدم" id="userAvatar">
+                        <span id="userName">مرحباً!</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" id="userDropdown">
+                        <a href="profile.html"><i class="fas fa-user"></i> الملف الشخصي</a>
+                        <a href="settings.html"><i class="fas fa-cog"></i> الإعدادات</a>
+                        <div class="divider"></div>
+                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a>
+                    </div>
+                </div>
+            </div>
+            <button class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- محتوى الصفحة -->
+    <div class="profile-container">
+        <div class="container">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <img src="assets/images/default-avatar.png" alt="صورة الملف الشخصي" id="profileAvatar">
+                    <button class="edit-avatar" id="editAvatarBtn">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                    <input type="file" id="avatarInput" accept="image/*" style="display: none;">
+                </div>
+                <div class="profile-info">
+                    <h1 id="profileName">محمد أحمد</h1>
+                    <p class="profile-username" id="profileUsername">@mohamed</p>
+                    <p class="profile-bio" id="profileBio">مشجع كرة قدم متحمس، أتابع جميع البطولات العربية والأوروبية</p>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="postsCount">128</span>
+                            <span class="stat-label">منشور</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="followingCount">245</span>
+                            <span class="stat-label">متابَع</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="followersCount">1.2K</span>
+                            <span class="stat-label">متابِع</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-outline" id="editProfileBtn">تعديل الملف الشخصي</button>
+            </div>
+
+            <div class="profile-tabs">
+                <button class="tab-btn active" data-tab="posts">المنشورات</button>
+                <button class="tab-btn" data-tab="saved">المحفوظات</button>
+                <button class="tab-btn" data-tab="likes">الإعجابات</button>
+                <button class="tab-btn" data-tab="activity">النشاط</button>
+            </div>
+
+            <div class="tab-content active" id="postsTab">
+                <div class="posts-grid">
+                    <!-- سيتم إضافة المنشورات ديناميكياً -->
+                    <div class="no-posts">
+                        <i class="far fa-newspaper"></i>
+                        <p>لا توجد منشورات حتى الآن</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="savedTab">
+                <div class="saved-posts">
+                    <div class="no-saved">
+                        <i class="far fa-bookmark"></i>
+                        <p>لا توجد محفوظات حتى الآن</p>
+                        <p class="hint">احفظ المنشورات المفضلة لديك هنا</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="likesTab">
+                <div class="liked-posts">
+                    <div class="no-likes">
+                        <i class="far fa-heart"></i>
+                        <p>لا توجد إعجابات حتى الآن</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="activityTab">
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="activity-details">
+                            <p>بدأت متابعة <a href="#" class="user-link">نادي الهلال</a></p>
+                            <span class="activity-time">منذ ساعتين</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-comment"></i>
+                        </div>
+                        <div class="activity-details">
+                            <p>أضفت تعليقاً على <a href="#" class="post-link">مباراة الهلال والاتحاد</a></p>
+                            <span class="activity-time">منذ يوم واحد</span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-thumbs-up"></i>
+                        </div>
+                        <div class="activity-details">
+                            <p>أعجبت بـ <a href="#" class="post-link">مقال عن الدوري السعودي</a></p>
+                            <span class="activity-time">منذ 3 أيام</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة تعديل الملف الشخصي -->
+    <div class="modal" id="editProfileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>تعديل الملف الشخصي</h2>
+                <button class="close-btn" id="closeEditModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editProfileForm">
+                    <div class="form-group">
+                        <label for="editFullName">الاسم الكامل</label>
+                        <input type="text" id="editFullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editUsername">اسم المستخدم</label>
+                        <input type="text" id="editUsername" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editBio">نبذة عنك</label>
+                        <textarea id="editBio" name="bio" rows="3" maxlength="160"></textarea>
+                        <small class="char-count"><span id="bioCharCount">0</span>/160</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmail">البريد الإلكتروني</label>
+                        <input type="email" id="editEmail" name="email" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="cancelEditBtn">إلغاء</button>
+                        <button type="submit" class="btn btn-primary">حفظ التغييرات</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- تذييل الصفحة -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="assets/images/logo-white.png" alt="شعار الموقع">
+                    <p>موقع رياضي متخصص في متابعة أخبار كرة القدم العربية والعالمية</p>
+                </div>
+                <div class="footer-links">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="leagues.html">البطولات</a></li>
+                        <li><a href="videos.html">الفيديو</a></li>
+                        <li><a href="analytics.html">التحليلات</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>تواصل معنا</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@footballarabic.com</li>
+                        <li><i class="fas fa-phone"></i> +123 456 7890</li>
+                    </ul>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>جميع الحقوق محفوظة &copy; 2025 موقع كرة القدم العربي</p>
+                <div class="footer-legal">
+                    <a href="privacy.html">سياسة الخصوصية</a>
+                    <a href="terms.html">الشروط والأحكام</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/profile.js" type="module"></script>
+    <script>
+        // تفعيل الألسنة
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // إزالة الفئة النشطة من جميع الأزهار والمحتويات
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                // إضافة الفئة النشطة للزر المحدد
+                button.classList.add('active');
+                
+                // إظهار المحتوى المقابل
+                const tabId = button.getAttribute('data-tab') + 'Tab';
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+
+        // فتح/إغلاق نافذة تعديل الملف الشخصي
+        const editProfileBtn = document.getElementById('editProfileBtn');
+        const editProfileModal = document.getElementById('editProfileModal');
+        const closeEditModal = document.getElementById('closeEditModal');
+        const cancelEditBtn = document.getElementById('cancelEditBtn');
+        
+        if (editProfileBtn && editProfileModal) {
+            editProfileBtn.addEventListener('click', () => {
+                editProfileModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+            
+            const closeModal = () => {
+                editProfileModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            };
+            
+            closeEditModal.addEventListener('click', closeModal);
+            cancelEditBtn.addEventListener('click', closeModal);
+            
+            // إغلاق النافذة عند النقر خارجها
+            window.addEventListener('click', (e) => {
+                if (e.target === editProfileModal) {
+                    closeModal();
+                }
+            });
+        }
+        
+        // عداد الأحرف في السيرة الذاتية
+        const bioTextarea = document.getElementById('editBio');
+        const bioCharCount = document.getElementById('bioCharCount');
+        
+        if (bioTextarea && bioCharCount) {
+            bioTextarea.addEventListener('input', () => {
+                const currentLength = bioTextarea.value.length;
+                bioCharCount.textContent = currentLength;
+                
+                if (currentLength > 150) {
+                    bioCharCount.style.color = '#ff4d4f';
+                } else {
+                    bioCharCount.style.color = '';
+                }
+            });
+        }
+        
+        // تفعيل القائمة المنسدلة في الأجهزة المحمولة
+        document.querySelector('.hamburger')?.addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+            this.classList.toggle('active');
+        });
+        
+        // تفعيل القائمة المنسدلة للمستخدم
+        const userMenuButton = document.getElementById('userMenuButton');
+        const userDropdown = document.getElementById('userDropdown');
+        
+        if (userMenuButton && userDropdown) {
+            userMenuButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                userDropdown.classList.toggle('show');
+            });
+            
+            // إغلاق القائمة المنسدلة عند النقر خارجها
+            window.addEventListener('click', (e) => {
+                if (!e.target.matches('.user-avatar, .user-avatar *')) {
+                    userDropdown.classList.remove('show');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

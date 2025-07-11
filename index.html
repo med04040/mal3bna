@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملعبنا - موقع كرة القدم العربي الأول</title>
+    <meta name="description" content="موقع ملعبنا - مصدرك الأول لأخبار كرة القدم العربية والعالمية، تغطية حصرية، تحليلات، أهداف، وترتيب الفرق">
+    <meta name="keywords" content="كرة قدم, أخبار كرة القدم, الدوري السعودي, الدوري المصري, دوري أبطال آسيا, دوري أبطال أفريقيا, كأس العالم">
+    <meta name="author" content="فريق ملعبنا">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- نظام المصادقة -->
+    <script type="module" src="assets/js/auth-ui.js"></script>
+</head>
+<body>
+    <!-- شريط التنقل المحسن -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <!-- الشعار -->
+            <a href="index.html" class="logo">
+                <div class="logo-circle">
+                    <div class="ball"></div>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-main">ملعبنا</span>
+                    <span class="logo-sub">بوابة كرة القدم العربية</span>
+                </div>
+            </a>
+            
+            <!-- شريط البحث -->
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="ابحث عن مباراة أو فريق...">
+                <button class="search-btn" aria-label="بحث">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            
+            <!-- قائمة التنقل -->
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link active"><i class="fas fa-home"></i> <span>الرئيسية</span></a></li>
+                <li><a href="#news" class="nav-link"><i class="fas fa-newspaper"></i> <span>الأخبار</span></a></li>
+                <li><a href="#matches" class="nav-link"><i class="fas fa-futbol"></i> <span>المباريات</span></a></li>
+                <li><a href="#rankings" class="nav-link"><i class="fas fa-trophy"></i> <span>الترتيب</span></a></li>
+                <li><a href="#teams" class="nav-link"><i class="fas fa-users"></i> <span>الفرق</span></a></li>
+                <li><a href="#videos" class="nav-link"><i class="fas fa-play-circle"></i> <span>الفيديو</span></a></li>
+                <li><a href="#analysis" class="nav-link"><i class="fas fa-chart-line"></i> <span>التحليلات</span></a></li>
+            </ul>
+            
+            <!-- أزرار إضافية -->
+            <div class="nav-actions">
+                <!-- روابط المصادقة - تظهر للمستخدمين غير المسجلين -->
+                <div class="auth-links" style="display: flex; gap: 10px;">
+                    <a href="login.html" class="btn btn-outline btn-sm">
+                        <i class="fas fa-sign-in-alt ml-2"></i>
+                        تسجيل الدخول
+                    </a>
+                    <a href="register.html" class="btn btn-primary btn-sm">
+                        <i class="fas fa-user-plus ml-2"></i>
+                        إنشاء حساب
+                    </a>
+                </div>
+                
+                <!-- قائمة المستخدم - تظهر للمستخدمين المسجلين -->
+                <div class="user-menu" style="display: none;">
+                    <button class="user-avatar" id="userMenuButton">
+                        <img src="assets/images/default-avatar.png" alt="صورة المستخدم" id="userAvatar">
+                        <span id="userName">اسم المستخدم</span>
+                        <i class="fas fa-chevron-down mr-1"></i>
+                    </button>
+                    
+                    <div class="dropdown-menu" id="userDropdown">
+                        <a href="profile.html">
+                            <i class="fas fa-user-circle ml-2"></i>
+                            الملف الشخصي
+                        </a>
+                        <a href="settings.html">
+                            <i class="fas fa-cog ml-2"></i>
+                            الإعدادات
+                        </a>
+                        <a href="#" id="notificationsLink">
+                            <i class="fas fa-bell ml-2"></i>
+                            الإشعارات
+                            <span class="notification-badge">3</span>
+                        </a>
+                        <div class="divider"></div>
+                        <a href="#" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt ml-2"></i>
+                            تسجيل الخروج
+                        </a>
+                    </div>
+                </div>
+                
+                <button class="theme-toggle" aria-label="تبديل الوضع المظلم">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            
+            <!-- زر القائمة المنسدلة للأجهزة المحمولة -->
+            <button class="menu-toggle" aria-label="قائمة التنقل">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="search-box">
+                <input type="text" placeholder="ابحث عن مباراة، فريق، أو لاعب..." aria-label="بحث">
+                <button type="button" aria-label="بحث">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- القسم الرئيسي -->
+    <header class="hero">
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+            <h1>مرحباً بكم في ملعبنا</h1>
+            <p>الوجهة الأولى لمحبي كرة القدم العربية والعالمية. نقدم لكم آخر الأخبار، النتائج المباشرة، التحليلات الحصرية، وأجمل اللحظات.</p>
+            <div class="hero-buttons">
+                <a href="#matches" class="btn btn-primary">
+                    <i class="fas fa-futbol ml-2"></i>
+                    المباريات القادمة
+                </a>
+                <a href="#news" class="btn btn-secondary">
+                    <i class="far fa-newspaper ml-2"></i>
+                    آخر الأخبار
+                </a>
+            </div>
+        </div>
+        
+        <!-- موجات متحركة -->
+        <div class="wave wave-1"></div>
+        <div class="wave wave-2"></div>
+        <div class="wave wave-3"></div>
+    </header>
+
+    <!-- القسم الرئيسي -->
+    <main>
+        <!-- قسم المباريات القادمة -->
+        <section id="matches" class="py-16 bg-surface">
+            <div class="container mx-auto px-4">
+                <div class="section-title text-center mb-12">
+                    <h2 class="text-3xl font-bold">المباريات القادمة</h2>
+                    <p class="text-text-secondary mt-2">تابع أهم المباريات القادمة في البطولات العربية والعالمية</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- مباراة 1 -->
+                    <div class="card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-header p-4 bg-primary-dark border-b border-border-color">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-text-secondary">الدوري السعودي للمحترفين</span>
+                                <span class="text-xs bg-accent text-white px-2 py-1 rounded">الجولة 12</span>
+                            </div>
+                            <div class="text-center text-text-secondary text-sm mt-2">
+                                <i class="far fa-calendar-alt ml-1"></i>
+                                السبت 15 يوليو 2023 - 21:00
+                            </div>
+                            <div class="text-center text-text-secondary text-sm">
+                                <i class="fas fa-map-marker-alt ml-1"></i>
+                                ملعب الملك فهد الدولي، الرياض
+                            </div>
+                        </div>
+                        <div class="card-body p-6">
+                            <div class="flex justify-between items-center">
+                                <div class="text-center">
+                                    <img src="https://via.placeholder.com/80" alt="الهلال" class="h-16 mx-auto mb-2">
+                                    <h3 class="font-bold">الهلال</h3>
+                                </div>
+                                <div class="text-2xl font-bold px-4">VS</div>
+                                <div class="text-center">
+                                    <img src="https://via.placeholder.com/80" alt="النصر" class="h-16 mx-auto mb-2">
+                                    <h3 class="font-bold">النصر</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer p-4 bg-primary-dark border-t border-border-color text-center">
+                            <a href="#" class="text-accent hover:text-accent-light font-medium">مشاهدة البث المباشر</a>
+                        </div>
+                    </div>
+                    
+                    <!-- مباراة 2 -->
+                    <div class="card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card-header p-4 bg-primary-dark border-b border-border-color">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-text-secondary">دوري أبطال أوروبا</span>
+                                <span class="text-xs bg-purple-600 text-white px-2 py-1 rounded">دور الـ16</span>
+                            </div>
+                            <div class="text-center text-text-secondary text-sm mt-2">
+                                <i class="far fa-calendar-alt ml-1"></i>
+                                الأحد 16 يوليو 2023 - 22:00
+                            </div>
+                            <div class="text-center text-text-secondary text-sm">
+                                <i class="fas fa-map-marker-alt ml-1"></i>
+                                ملعب سانتياجو برنابيو، مدريد
+                            </div>
+                        </div>
+                        <div class="card-body p-6">
+                            <div class="flex justify-between items-center">
+                                <div class="text-center">
+                                    <img src="https://via.placeholder.com/80/1e3a8a/ffffff?text=RM" alt="ريال مدريد" class="h-16 mx-auto mb-2">
+                                    <h3 class="font-bold">ريال مدريد</h3>
+                                </div>
+                                <div class="text-2xl font-bold px-4">VS</div>
+                                <div class="text-center">
+                                    <img src="https://via.placeholder.com/80/db0000/ffffff?text=MC" alt="مانشستر سيتي" class="h-16 mx-auto mb-2">
+                                    <h3 class="font-bold">مانشستر سيتي</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer p-4 bg-primary-dark border-t border-border-color text-center">
+                            <a href="#" class="text-accent hover:text-accent-light font-medium">مشاهدة البث المباشر</a>
+                        </div>
+                    </div>
+                    
+                    <!-- مباراة 3 -->
+                    <div class="card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card-header p-4 bg-primary-dark border-b border-border-color">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-text-secondary">الدوري المصري الممتاز</span>
+                                <span class="text-xs bg-yellow-600 text-white px-2 py-1 rounded">الجولة 8</span>
+                            </div>
+                            <div class="text-center text-text-secondary text-sm mt-2">
+                                <i class="far fa-calendar-alt ml-1"></i>
+                                الإثنين 17 يوليو 2023 - 19:00
+                            </div>
+                            <div class="text-center text-text-secondary text-sm">
+                                <i class="fas fa-map-marker-alt ml-1"></i>
+                                ستاد القاهرة الدولي، القاهرة
+                            </div>
+                        </div>
+                        <div class="card-body p-6">
+                            <div class="flex justify-between items-center">
+                                <div class="text-center">
+                                    <img src="https://via.placeholder.com/80/ff0000/ffffff?text=AH" alt="الأهلي" class="h-16 mx-auto mb-2">
+                                    <h3 class="font-bold">الأهلي</h3>
+                                </div>
+                                <div class="text-2xl font-bold px-4">VS</div>
+                                <div class="text-center">
+                                    <img src="https://via.placeholder.com/80/000000/ffffff?text=ZAM" alt="الزمالك" class="h-16 mx-auto mb-2">
+                                    <h3 class="font-bold">الزمالك</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer p-4 bg-primary-dark border-t border-border-color text-center">
+                            <a href="#" class="text-accent hover:text-accent-light font-medium">متابعة النتائج</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-10">
+                    <a href="#" class="inline-flex items-center text-accent hover:text-accent-light font-medium">
+                        عرض جميع المباريات
+                        <i class="fas fa-arrow-left mr-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- الأخبار العاجلة -->
+        <section id="breaking-news" class="py-12 bg-gray-50 dark:bg-gray-800">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold flex items-center">
+                        <span class="bg-red-600 text-white p-2 rounded-full mr-3">
+                            <i class="fas fa-bolt"></i>
+                        </span>
+                        الأخبار العاجلة
+                    </h2>
+                    <div class="flex items-center">
+                        <button class="news-nav-btn prev-news" aria-label="السابق">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <button class="news-nav-btn next-news ml-2" aria-label="التالي">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="breaking-news-slider overflow-hidden">
+                    <div class="breaking-news-track flex">
+                        <!-- سيتم إضافة الأخبار العاجلة ديناميكيًا -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- آخر الأخبار -->
+        <section id="latest-news" class="py-16">
+            <div class="container mx-auto px-4">
+                <div class="section-title text-center mb-12">
+                    <h2 class="text-3xl font-bold flex items-center justify-center">
+                        <i class="far fa-newspaper ml-2"></i>
+                        آخر الأخبار
+                    </h2>
+                    <p class="text-text-secondary mt-2">تابع آخر المستجدات في عالم كرة القدم العربية والعالمية</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- سيتم إضافة الأخبار ديناميكيًا -->
+                </div>
+                
+                <div class="text-center mt-12">
+                    <a href="#" class="inline-flex items-center text-accent hover:text-accent-light font-medium">
+                        المزيد من الأخبار
+                        <i class="fas fa-arrow-left mr-2"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="news-grid">
+                <!-- سيتم إضافة الأخبار عبر الجافاسكريبت -->
+            </div>
+        </section>
+    </main>
+
+    <!-- تذييل الصفحة -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h2><i class="fas fa-trophy"></i> ترتيب الفرق</h2>
+                <p>ملعبنا هو موقع رياضي متخصص في تغطية أخبار كرة القدم العربية والعالمية.</p>
+            </div>
+            <div class="footer-section">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="#privacy">سياسة الخصوصية</a></li>
+                    <li><a href="#terms">شروط الاستخدام</a></li>
+                    <li><a href="#contact">اتصل بنا</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>تابعنا على</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 ملعبنا. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

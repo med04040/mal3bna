@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>البطولات والدوريات - ملعبنا</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/leagues.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e40af',
+                        secondary: '#1e3a8a',
+                        'bg-primary': '#0f172a',
+                        'bg-secondary': '#1e293b',
+                        'bg-hover': '#2d3748',
+                        'card-bg': '#1e293b',
+                        'border-color': '#2d3748',
+                        'text-primary': '#f8fafc',
+                        'text-secondary': '#94a3b8',
+                    },
+                    fontFamily: {
+                        'tajawal': ['Tajawal', 'sans-serif'],
+                    },
+                }
+            },
+            corePlugins: {
+                preflight: false,
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+        
+        .league-item {
+            transition: all 0.3s ease;
+        }
+        
+        .league-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .league-item.active {
+            border-color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        
+        .tab-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .tab-btn.active {
+            border-bottom: 3px solid #3b82f6;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .standings-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .standings-table th, 
+        .standings-table td {
+            padding: 12px 8px;
+            text-align: center;
+            border-bottom: 1px solid #2d3748;
+        }
+        
+        .standings-table th {
+            background-color: #1e293b;
+            color: #94a3b8;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
+        
+        .standings-table tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .team-cell {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        
+        .team-logo {
+            width: 24px;
+            height: 24px;
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .team-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #3b82f6;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-top:hover {
+            background-color: #2563eb;
+            transform: translateY(-3px);
+        }
+        
+        .search-container {
+            position: relative;
+        }
+        
+        .search-input {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 250px;
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 4px;
+            padding: 8px 12px;
+            margin-top: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            z-index: 50;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+        }
+        
+        /* تحسينات للوضع المظلم */
+        .dark .standings-table th {
+            background-color: #1e293b;
+        }
+        
+        .dark .standings-table tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* تحسينات للهواتف */
+        @media (max-width: 768px) {
+            .standings-table {
+                font-size: 0.875rem;
+            }
+            
+            .standings-table th,
+            .standings-table td {
+                padding: 8px 4px;
+            }
+            
+            .team-name {
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo">
+                <div class="logo-circle">
+                    <div class="ball"></div>
+            </a>
+        </div>
+        
+        <nav class="hidden md:flex items-center space-x-6 rtl:space-x-reverse">
+            <a href="index.html" class="hover:text-secondary transition-colors">الرئيسية</a>
+            <a href="news.html" class="hover:text-secondary transition-colors">الأخبار</a>
+            <a href="leagues.html" class="text-secondary font-medium">البطولات</a>
+            <a href="teams.html" class="hover:text-secondary transition-colors">الفرق</a>
+            <a href="analytics.html" class="hover:text-secondary transition-colors">التحليلات</a>
+            <a href="highlights.html" class="hover:text-secondary transition-colors">أهداف المباريات</a>
+        </nav>
+        
+        <div class="flex items-center space-x-4 rtl:space-x-reverse">
+            <div class="search-container">
+                <button class="search-btn p-2 rounded-full hover:bg-white/10 transition-colors">
+                    <i class="fas fa-search"></i>
+                </button>
+                <input type="text" class="search-input w-0 opacity-0 px-0 transition-all duration-300" placeholder="ابحث عن بطولة أو فريق...">
+            </div>
+            
+            <div class="relative">
+                <button class="user-btn flex items-center space-x-2 rtl:space-x-reverse focus:outline-none">
+                    <img src="https://via.placeholder.com/32" alt="صورة المستخدم" class="w-8 h-8 rounded-full">
+                    <span class="hidden md:inline">حسابي</span>
+                    <i class="fas fa-chevron-down text-xs"></i>
+                </button>
+                
+                <div class="user-dropdown hidden absolute right-0 mt-2 w-48 bg-card-bg rounded-md shadow-lg py-1 z-50 border border-border-color">
+                    <a href="profile.html" class="block px-4 py-2 text-text-primary hover:bg-bg-hover">الملف الشخصي</a>
+                    <a href="settings.html" class="block px-4 py-2 text-text-primary hover:bg-bg-hover">الإعدادات</a>
+                    <a href="#" class="block px-4 py-2 text-red-500 hover:bg-red-500/10">تسجيل خروج</a>
+                </div>
+            </div>
+            
+            <button class="md:hidden menu-toggle p-2 rounded-full hover:bg-white/10 transition-colors">
+                <i class="fas fa-bars text-xl"></i>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- محتوى الصفحة -->
+    <!-- محتوى الصفحة الرئيسية -->
+    <main class="py-24 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto">
+        <!-- عناوين الصفحة -->
+        <div class="mb-8 text-center" data-aos="fade-up">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">البطولات والدوريات</h1>
+            <p class="text-text-secondary max-w-3xl mx-auto">تابع أحدث أخبار وإحصائيات البطولات والدوريات المحلية والعالمية</p>
+        </div>
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- بطولة 3 -->
+                    <div class="league-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="league-logo">
+                            <img src="https://via.placeholder.com/100/1e293b/ffffff?text=دوري+أبطال+أوروبا" alt="دوري أبطال أوروبا">
+                        </div>
+                        <div class="league-info">
+                            <h3 class="league-name">دوري أبطال أوروبا</h3>
+                            <div class="league-meta">
+                                <span class="league-country">
+                                    <i class="fas fa-globe-europe"></i>
+                                    أوروبا
+                                </span>
+                                <span class="league-teams">
+                                    <i class="fas fa-users"></i>
+        
+        <!-- فلتر البطولات -->
+        <div class="mb-8" data-aos="fade-up" data-aos-delay="100">
+            <div class="flex flex-wrap gap-2 justify-center">
+                <button class="filter-btn active px-4 py-2 rounded-full bg-primary text-white hover:bg-primary/90 transition-colors" data-filter="all">الكل</button>
+                <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors" data-filter="europe">أوروبا</button>
+                <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors" data-filter="asia">آسيا</button>
+                <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors" data-filter="africa">أفريقيا</button>
+                <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors" data-filter="america">أمريكا</button>
+                <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300 transition-colors" data-filter="local">محلية</button>
+                <div class="tab-content" id="top-scorers">
+                    <!-- سيتم ملؤه بالجافاسكريبت -->
+                    <div class="text-center py-8">
+                        <p class="text-text-secondary">اختر بطولة لعرض قائمة الهدافين</p>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="assists">
+                    <!-- سيتم ملؤه بالجافاسكريبت -->
+                    <div class="text-center py-8">
+                        <p class="text-text-secondary">اختر بطولة لعرض قائمة صناع الألعاب</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- تذييل الصفحة -->
+    <footer class="bg-card-bg border-t border-border-color mt-16">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- معلومات الموقع -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2 rtl:space-x-reverse">
+                        <img src="images/logo.png" alt="شعار الموقع" class="h-10">
+                        <span class="text-xl font-bold">ملعبنا</span>
+                    </div>
+                    <p class="text-text-secondary">بوابة رياضية شاملة تقدم آخر الأخبار والتحليلات والنتائج والإحصائيات لكرة القدم العربية والعالمية.</p>
+                    <div class="flex space-x-4 rtl:space-x-reverse">
+                        <a href="#" class="text-text-secondary hover:text-primary transition-colors"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-text-secondary hover:text-primary transition-colors"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-text-secondary hover:text-primary transition-colors"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-text-secondary hover:text-primary transition-colors"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="text-text-secondary hover:text-primary transition-colors"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+                
+                <!-- روابط سريعة -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4 pb-2 border-b border-border-color">روابط سريعة</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-text-secondary hover:text-primary transition-colors">الرئيسية</a></li>
+                        <li><a href="leagues.html" class="text-text-secondary hover:text-primary transition-colors">البطولات</a></li>
+                        <li><a href="news.html" class="text-text-secondary hover:text-primary transition-colors">الأخبار</a></li>
+                        <li><a href="teams.html" class="text-text-secondary hover:text-primary transition-colors">الفرق</a></li>
+                        <li><a href="analytics.html" class="text-text-secondary hover:text-primary transition-colors">التحليلات</a></li>
+                    </ul>
+                </div>
+                
+                <!-- اتصل بنا -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4 pb-2 border-b border-border-color">اتصل بنا</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start space-x-2 rtl:space-x-reverse">
+                            <i class="fas fa-envelope mt-1 text-primary"></i>
+                            <span class="text-text-secondary">info@mal3bna.com</span>
+                        </li>
+                        <li class="flex items-start space-x-2 rtl:space-x-reverse">
+                            <i class="fas fa-phone-alt mt-1 text-primary"></i>
+                            <span class="text-text-secondary">+966 12 345 6789</span>
+                        </li>
+                        <li class="flex items-start space-x-2 rtl:space-x-reverse">
+                            <i class="fas fa-map-marker-alt mt-1 text-primary"></i>
+                            <span class="text-text-secondary">الرياض، المملكة العربية السعودية</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- النشرة البريدية -->
+                <div>
+                    <h3 class="text-lg font-bold mb-4 pb-2 border-b border-border-color">النشرة البريدية</h3>
+                    <p class="text-text-secondary mb-4">اشترك في نشرتنا البريدية لتصلك آخر الأخبار والتحديثات</p>
+                    <form class="space-y-3">
+                        <input type="email" placeholder="بريدك الإلكتروني" class="w-full px-4 py-2 rounded-lg border border-border-color bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                        <button type="submit" class="w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors">اشتراك</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- حقوق النشر -->
+            <div class="border-t border-border-color mt-12 pt-8 text-center text-text-secondary text-sm">
+                <p>جميع الحقوق محفوظة &copy; 2023 ملعبنا. تم التطوير بواسطة <a href="#" class="text-primary hover:underline">فريق ملعبنا</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- الأكواد البرمجية -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/leagues.js"></script>
+    <script>
+        // تهيئة AOS للحركات المتحركة
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+        
+        // إظهار/إخفاء زر العودة للأعلى
+        const scrollTopBtn = document.querySelector('.scroll-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('opacity-100', 'visible');
+                scrollTopBtn.classList.remove('opacity-0', 'invisible');
+            } else {
+                scrollTopBtn.classList.remove('opacity-100', 'visible');
+                scrollTopBtn.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        // التمرير السلس للأعلى عند النقر على زر العودة للأعلى
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // تفعيل القائمة المنسدلة للمستخدم
+        const userBtn = document.querySelector('.user-btn');
+        const userDropdown = document.querySelector('.user-dropdown');
+        
+        userBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userDropdown.classList.toggle('hidden');
+        });
+        
+        // إغلاق القوائم المنسدلة عند النقر خارجها
+        document.addEventListener('click', (e) => {
+            if (!userDropdown.contains(e.target) && !userBtn.contains(e.target)) {
+                userDropdown.classList.add('hidden');
+            }
+        });
+        
+        // تفعيل زر القائمة الجانبية للجوال
+        const menuToggle = document.querySelector('.menu-toggle');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // تفعيل زر البحث
+        const searchBtn = document.querySelector('.search-btn');
+        const searchInput = document.querySelector('.search-input');
+        
+        searchBtn.addEventListener('click', () => {
+            searchInput.classList.toggle('w-64');
+            searchInput.classList.toggle('opacity-100');
+            searchInput.classList.toggle('px-4');
+            searchInput.focus();
+        });
+    </script>
+</body>
+</html>

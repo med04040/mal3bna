@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - ملعبنا | بوابة كرة القدم العربية</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="سجل دخولك إلى موقع ملعبنا لمتابعة آخر أخبار كرة القدم العربية والعالمية، المباريات، النتائج، والتحليلات الحصرية">
+    <meta name="keywords" content="تسجيل الدخول, كرة قدم, دوري أبطال أوروبا, الدوري السعودي, الدوري المصري, دوري أبطال آسيا, دوري أبطال أفريقيا">
+    <meta name="author" content="فريق ملعبنا">
+    <meta name="theme-color" content="#1e88e5">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- نظام المصادقة -->
+    <script type="module" src="assets/js/auth-ui.js"></script>
+    
+    <!-- PWA Support -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <!-- الشعار -->
+            <a href="index.html" class="logo">
+                <div class="logo-circle">
+                    <div class="ball"></div>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-main">ملعبنا</span>
+                    <span class="logo-sub">بوابة كرة القدم العربية</span>
+                </div>
+            </a>
+            
+            <!-- شريط البحث -->
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="ابحث عن مباراة أو فريق...">
+                <button class="search-btn" aria-label="بحث">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            
+            <!-- أزرار إضافية -->
+            <div class="nav-actions">
+                <!-- روابط المصادقة - تظهر للمستخدمين غير المسجلين -->
+                <div class="auth-links" style="display: flex; gap: 10px;">
+                    <a href="login.html" class="btn btn-outline btn-sm active">
+                        <i class="fas fa-sign-in-alt ml-2"></i>
+                        تسجيل الدخول
+                    </a>
+                    <a href="register.html" class="btn btn-primary btn-sm">
+                        <i class="fas fa-user-plus ml-2"></i>
+                        إنشاء حساب
+                    </a>
+                </div>
+                
+                <!-- قائمة المستخدم - تظهر للمستخدمين المسجلين -->
+                <div class="user-menu" style="display: none;">
+                    <button class="user-avatar" id="userMenuButton">
+                        <img src="assets/images/default-avatar.png" alt="صورة المستخدم" id="userAvatar">
+                        <span id="userName">اسم المستخدم</span>
+                        <i class="fas fa-chevron-down mr-1"></i>
+                    </button>
+                    
+                    <div class="dropdown-menu" id="userDropdown">
+                        <a href="profile.html">
+                            <i class="fas fa-user-circle ml-2"></i>
+                            الملف الشخصي
+                        </a>
+                        <a href="settings.html">
+                            <i class="fas fa-cog ml-2"></i>
+                            الإعدادات
+                        </a>
+                        <a href="#" id="notificationsLink">
+                            <i class="fas fa-bell ml-2"></i>
+                            الإشعارات
+                            <span class="notification-badge">3</span>
+                        </a>
+                        <div class="divider"></div>
+                        <a href="#" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt ml-2"></i>
+                            تسجيل الخروج
+                        </a>
+                    </div>
+                </div>
+                
+                <button class="theme-toggle" aria-label="تبديل الوضع المظلم">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            
+            <!-- زر القائمة المنسدلة للأجهزة المحمولة -->
+            <button class="menu-toggle" aria-label="قائمة التنقل">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- رسائل الخطأ -->
+    <div id="errorMessage" class="error-message" style="display: none;"></div>
+    
+    <!-- محتوى الصفحة -->
+    <div class="auth-container" data-aos="fade-up" data-aos-duration="800">
+        <div class="auth-box">
+            <div class="auth-header" style="text-align: center; margin-bottom: 30px;">
+                <div class="logo" style="margin-bottom: 20px;">
+                    <img src="images/logo.png" alt="ملعبنا" style="height: 60px; width: auto;">
+                </div>
+                <h1 style="font-size: 2.2rem; color: #1e88e5; margin-bottom: 10px;">مرحباً بعودتك!</h1>
+                <p class="auth-subtitle" style="color: #666; font-size: 1.05rem;">سجل دخولك للوصول إلى حسابك والاستفادة من المميزات الحصرية</p>
+            </div>
+            
+            <form id="loginForm" class="auth-form">
+                <div id="formError" class="error-message" style="display: none;"></div>
+                
+                <div class="form-group">
+                    <label for="email">البريد الإلكتروني</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="email" required 
+                               placeholder="أدخل بريدك الإلكتروني"
+                               autocomplete="email"
+                               aria-describedby="emailHelp">
+                    </div>
+                    <small id="emailHelp" class="form-text text-muted">لن نشارك بريدك الإلكتروني مع أي شخص آخر.</small>
+                </div>
+                
+                <div class="form-group">
+                    <div class="form-header">
+                        <label for="password">كلمة المرور</label>
+                        <a href="forgot-password.html" class="forgot-password">نسيت كلمة المرور؟</a>
+                    </div>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" required 
+                               placeholder="أدخل كلمة المرور"
+                               autocomplete="current-password"
+                               minlength="8"
+                               aria-describedby="passwordHelp">
+                        <button type="button" class="toggle-password" data-target="password" aria-label="إظهار/إخفاء كلمة المرور">
+                            <i class="far fa-eye"></i>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <div class="form-group remember-me" style="margin: 0;">
+                        <input type="checkbox" id="remember" name="remember" style="width: auto; margin-left: 8px;">
+                        <label for="remember" style="display: inline; font-size: 0.9rem; color: #555;">تذكرني</label>
+                    </div>
+                    <a href="forgot-password.html" class="forgot-password" style="color: #1e88e5; text-decoration: none; font-size: 0.9rem;">
+                        نسيت كلمة المرور؟
+                    </a>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block" style="padding: 12px; font-size: 1rem; font-weight: 600; border-radius: 8px; transition: all 0.3s ease;">
+                    <span class="btn-text">تسجيل الدخول</span>
+                    <i class="fas fa-sign-in-alt ml-2"></i>
+                </button>
+                
+                <div class="auth-divider" style="margin: 25px 0; text-align: center; position: relative;">
+                    <span style="background: #fff; padding: 0 15px; position: relative; color: #888; font-size: 0.9rem;">أو</span>
+                    <hr style="position: absolute; top: 50%; right: 0; left: 0; height: 1px; background: #eee; border: none; margin: 0; z-index: -1;">
+                </div>
+                
+                <div class="social-login" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+                    <button type="button" class="btn btn-outline btn-block" style="display: flex; align-items: center; justify-content: center; padding: 10px; border: 1px solid #ddd; background: #fff; border-radius: 8px; font-size: 0.95rem; color: #444; transition: all 0.3s ease;">
+                        <img src="assets/images/google-icon.png" alt="Google" style="width: 20px; height: 20px; margin-left: 10px;">
+                        <span>متابعة بحساب Google</span>
+                    </button>
+                    <button type="button" class="btn btn-outline btn-block" style="display: flex; align-items: center; justify-content: center; padding: 10px; border: 1px solid #ddd; background: #fff; border-radius: 8px; font-size: 0.95rem; color: #444; transition: all 0.3s ease;">
+                        <i class="fab fa-facebook-f" style="color: #1877f2; margin-left: 10px; font-size: 1.1rem;"></i>
+                        <span>متابعة بحساب Facebook</span>
+                    </button>
+                </div>
+                
+                <p class="auth-footer" style="text-align: center; color: #666; font-size: 0.95rem; margin-top: 20px;">
+                    ليس لديك حساب؟ <a href="register.html" style="color: #1e88e5; font-weight: 600; text-decoration: none;">إنشاء حساب جديد</a>
+                </p>
+            </form>
+        </div>
+        
+        <div class="auth-image" style="background: linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%); position: relative; overflow: hidden;">
+            <div class="auth-image-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); z-index: 1;">
+                <div class="auth-image-content" style="position: relative; z-index: 2; padding: 40px; color: white; height: 100%; display: flex; flex-direction: column; justify-content: center; text-align: center;">
+                    <h2 style="font-size: 2.2rem; margin-bottom: 20px; font-weight: 700; line-height: 1.3;">انضم إلى مجتمع عشاق كرة القدم</h2>
+                    <p style="font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; line-height: 1.6;">تابع مبارياتك المفضلة، احصل على آخر الأخبار والتحليلات الحصرية، وكن جزءاً من مجتمعنا الكروي</p>
+                    
+                    <div class="features-list" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px;">
+                        <div class="feature" style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 10px; backdrop-filter: blur(5px); transition: transform 0.3s ease, background 0.3s ease;">
+                            <div style="width: 50px; height: 50px; background: rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+                                <i class="fas fa-futbol" style="font-size: 1.3rem; color: #fff;"></i>
+                            </div>
+                            <span style="font-weight: 500; font-size: 0.95rem;">متابعة المباريات المباشرة</span>
+                        </div>
+                        
+                        <div class="feature" style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 10px; backdrop-filter: blur(5px); transition: transform 0.3s ease, background 0.3s ease;">
+                            <div style="width: 50px; height: 50px; background: rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+                                <i class="fas fa-bell" style="font-size: 1.3rem; color: #fff;"></i>
+                            </div>
+                            <span style="font-weight: 500; font-size: 0.95rem;">إشعارات فورية</span>
+                        </div>
+                        
+                        <div class="feature" style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 10px; backdrop-filter: blur(5px); transition: transform 0.3s ease, background 0.3s ease;">
+                            <div style="width: 50px; height: 50px; background: rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+                                <i class="fas fa-trophy" style="font-size: 1.3rem; color: #fff;"></i>
+                            </div>
+                            <span style="font-weight: 500; font-size: 0.95rem;">نتائج وبطولات حصرية</span>
+                        </div>
+                        
+                        <div class="feature" style="background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 10px; backdrop-filter: blur(5px); transition: transform 0.3s ease, background 0.3s ease;">
+                            <div style="width: 50px; height: 50px; background: rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
+                                <i class="fas fa-users" style="font-size: 1.3rem; color: #fff;"></i>
+                            </div>
+                            <span style="font-weight: 500; font-size: 0.95rem;">مجتمع تفاعلي</span>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                        <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 15px;">انضم إلى أكثر من مليون مشجع كرة قدم</p>
+                        <div style="display: flex; justify-content: center; gap: 10px;">
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center;">
+                                <i class="fab fa-twitter" style="color: #fff; font-size: 1.1rem;"></i>
+                            </div>
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center;">
+                                <i class="fab fa-facebook-f" style="color: #fff; font-size: 1.1rem;"></i>
+                            </div>
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center;">
+                                <i class="fab fa-instagram" style="color: #fff; font-size: 1.1rem;"></i>
+                            </div>
+                            <div style="width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center;">
+                                <i class="fab fa-youtube" style="color: #fff; font-size: 1.1rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- تذييل الصفحة -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo" data-aos="fade-up">
+                    <div class="logo">
+                        <div class="logo-circle">
+                            <div class="ball"></div>
+                        </div>
+                        <div class="logo-text">
+                            <span class="logo-main">ملعبنا</span>
+                            <span class="logo-sub">بوابة كرة القدم العربية</span>
+                        </div>
+                    </div>
+                    <p class="footer-description">الوجهة الأولى لمحبي كرة القدم العربية والعالمية. نقدم لكم آخر الأخبار، النتائج المباشرة، التحليلات الحصرية، وأجمل اللحظات.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="يوتيوب"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="تيك توك"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="footer-title">روابط سريعة</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-chevron-left ml-2"></i> الرئيسية</a></li>
+                        <li><a href="leagues.html"><i class="fas fa-chevron-left ml-2"></i> البطولات</a></li>
+                        <li><a href="videos.html"><i class="fas fa-chevron-left ml-2"></i> الفيديو</a></li>
+                        <li><a href="analytics.html"><i class="fas fa-chevron-left ml-2"></i> التحليلات</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-left ml-2"></i> من نحن</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-left ml-2"></i> اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="footer-title">تواصل معنا</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>الرياض، المملكة العربية السعودية</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:info@mal3bna.com">info@mal3bna.com</a>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt"></i>
+                            <a href="tel:+966112345678">+966 11 234 5678</a>
+                        </li>
+                    </ul>
+                    
+                    <div class="newsletter" data-aos="fade-up" data-aos-delay="300">
+                        <h4>اشترك في نشرتنا البريدية</h4>
+                        <p>احصل على آخر الأخبار والتحديثات مباشرة إلى بريدك الإلكتروني</p>
+                        <form class="newsletter-form">
+                            <div class="input-group">
+                                <input type="email" placeholder="بريدك الإلكتروني" required>
+                                <button type="submit" class="btn-newsletter">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright" data-aos="fade-up">
+                    <p>&copy; 2025 ملعبنا. جميع الحقوق محفوظة</p>
+                </div>
+                
+                <div class="footer-legal" data-aos="fade-up" data-aos-delay="100">
+                    <a href="privacy.html">سياسة الخصوصية</a>
+                    <span class="divider">|</span>
+                    <a href="terms.html">الشروط والأحكام</a>
+                    <span class="divider">|</span>
+                    <a href="sitemap.html">خريطة الموقع</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Animation -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Custom Scripts -->
+    <script>
+        // تهيئة AOS Animation
+        AOS.init({
+            duration: 800,
+            once: true,
+            easing: 'ease-in-out',
+            offset: 10
+        });
+        
+        // تفعيل زر إظهار/إخفاء كلمة المرور
+        document.addEventListener('DOMContentLoaded', function() {
+            // زر إظهار/إخفاء كلمة المرور
+            document.querySelectorAll('.toggle-password').forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const input = document.getElementById(targetId);
+                    const icon = this.querySelector('i');
+                    
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                        this.setAttribute('aria-label', 'إخفاء كلمة المرور');
+                    } else {
+                        input.type = 'password';
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
+                        this.setAttribute('aria-label', 'إظهار كلمة المرور');
+                    }
+                });
+            });
+            
+            // تفعيل القائمة المنسدلة في الأجهزة المحمولة
+            const menuToggle = document.querySelector('.menu-toggle');
+            if (menuToggle) {
+                menuToggle.addEventListener('click', function() {
+                    const navLinks = document.querySelector('.nav-links');
+                    if (navLinks) {
+                        navLinks.classList.toggle('active');
+                        this.classList.toggle('active');
+                        
+                        // تغيير الأيقونة
+                        const icon = this.querySelector('i');
+                        if (this.classList.contains('active')) {
+                            icon.classList.remove('fa-bars');
+                            icon.classList.add('fa-times');
+                        } else {
+                            icon.classList.remove('fa-times');
+                            icon.classList.add('fa-bars');
+                        }
+                    }
+                });
+            }
+            
+            // إغلاق القوائم المنسدلة عند النقر خارجها
+            document.addEventListener('click', function(event) {
+                const userMenu = document.querySelector('.user-menu');
+                const userMenuButton = document.getElementById('userMenuButton');
+                const dropdownMenu = document.getElementById('userDropdown');
+                
+                if (userMenu && userMenuButton && dropdownMenu) {
+                    if (!userMenu.contains(event.target) && !userMenuButton.contains(event.target)) {
+                        dropdownMenu.classList.remove('show');
+                    }
+                }
+                
+                // إغلاق القائمة المتنقلة عند النقر على رابط
+                const navLinks = document.querySelectorAll('.nav-links a');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        const menuToggle = document.querySelector('.menu-toggle');
+                        const navMenu = document.querySelector('.nav-links');
+                        const icon = menuToggle.querySelector('i');
+                        
+                        navMenu.classList.remove('active');
+                        menuToggle.classList.remove('active');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    });
+                });
+            });
+            
+            // تفعيل القائمة المنسدلة للمستخدم
+            const userMenuButton = document.getElementById('userMenuButton');
+            if (userMenuButton) {
+                userMenuButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const dropdownMenu = document.getElementById('userDropdown');
+                    if (dropdownMenu) {
+                        dropdownMenu.classList.toggle('show');
+                    }
+                });
+            }
+            
+            // إضافة تأثيرات للعناصر عند التمرير
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.animate-on-scroll');
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementPosition < windowHeight - 100) {
+                        element.classList.add('animated');
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // تحقق عند التحميل
+        });
+        
+        // معالجة إرسال نموذج تسجيل الدخول
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const loginButton = document.getElementById('loginButton');
+            const loginSpinner = document.getElementById('loginSpinner');
+            const formError = document.getElementById('formError');
+            
+            if (loginForm) {
+                loginForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    // إظهار حالة التحميل
+                    loginButton.disabled = true;
+                    loginSpinner.classList.remove('d-none');
+                    loginButton.querySelector('.btn-text').textContent = 'جاري تسجيل الدخول...';
+                    
+                    // الحصول على قيم النموذج
+                    const email = document.getElementById('email').value.trim();
+                    const password = document.getElementById('password').value;
+                    const remember = document.getElementById('remember').checked;
+                    
+                    try {
+                        // محاكاة اتصال بالخادم
+                        await new Promise(resolve => setTimeout(resolve, 1500));
+                        
+                        // التحقق من صحة البيانات (هذا مثال بسيط، يجب استبداله بالتحقق الفعلي)
+                        if (!email || !password) {
+                            throw new Error('الرجاء إدخال البريد الإلكتروني وكلمة المرور');
+                        }
+                        
+                        // إعادة التوجيه بعد تسجيل الدخول الناجح
+                        window.location.href = 'index.html';
+                        
+                    } catch (error) {
+                        // عرض رسالة الخطأ
+                        formError.textContent = error.message || 'حدث خطأ أثناء تسجيل الدخول. يرجى المحاولة مرة أخرى.';
+                        formError.style.display = 'block';
+                        
+                        // إخفاء رسالة الخطأ بعد 5 ثوانٍ
+                        setTimeout(() => {
+                            formError.style.display = 'none';
+                        }, 5000);
+                        
+                    } finally {
+                        // إعادة تعيين حالة الزر
+                        loginButton.disabled = false;
+                        loginSpinner.classList.add('d-none');
+                        loginButton.querySelector('.btn-text').textContent = 'تسجيل الدخول';
+                    }
+                });
+            }
+            
+            // معالجة تسجيل الدخول عبر وسائل التواصل الاجتماعي
+            const socialButtons = ['googleLogin', 'facebookLogin', 'twitterLogin'];
+            socialButtons.forEach(buttonId => {
+                const button = document.getElementById(buttonId);
+                if (button) {
+                    button.addEventListener('click', function() {
+                        // إضافة تأثير النقر
+                        this.classList.add('clicked');
+                        setTimeout(() => this.classList.remove('clicked'), 300);
+                        
+                        // محاكاة عملية تسجيل الدخول
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحميل...';
+                        
+                        // محاكاة اتصال بالخادم
+                        setTimeout(() => {
+                            this.innerHTML = originalText;
+                            alert('سيتم توجيهك إلى صفحة تسجيل الدخول بـ ' + 
+                                 (buttonId.includes('google') ? 'جوجل' : 
+                                  buttonId.includes('facebook') ? 'فيسبوك' : 'تويتر'));
+                        }, 1000);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

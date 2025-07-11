@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منتدى المشجعين - ملعبنا | مجتمع عشاق كرة القدم</title>
+    
+    <!-- Meta Tags -->
+    <meta name="description" content="انضم إلى منتدى مشجعي كرة القدم، شارك في النقاشات، استطلاعات الرأي، المسابقات وتفاعل مع عشاق كرة القدم">
+    <meta name="keywords" content="منتدى كرة قدم, نقاشات رياضية, استطلاعات رأي, مسابقات رياضية, مجتمع المشجعين">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/css/forum.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- شريط التنقل -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo">
+                <div class="logo-circle">
+                    <div class="ball"></div>
+                </div>
+                <span class="logo-text">ملعبنا</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">الرئيسية</a>
+                <a href="news.html">الأخبار</a>
+                <a href="leagues.html">البطولات</a>
+                <a href="videos.html">الفيديوهات</a>
+                <a href="analytics.html" class="active">التحليلات</a>
+                <a href="#">الفرق</a>
+            </div>
+            <div class="nav-actions">
+                <button class="btn btn-primary" id="loginBtn">تسجيل الدخول</button>
+                <button class="btn btn-outline" id="registerBtn">إنشاء حساب</button>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- محتوى المنتدى -->
+    <main class="forum-container">
+        <!-- البانر العلوي -->
+        <header class="forum-header">
+            <div class="forum-hero">
+                <h1>منتدى المشجعين</h1>
+                <p>مكان لقاء عشاق كرة القدم للنقاش وتبادل الآراء</p>
+                <button class="btn btn-primary" id="createThreadBtn">
+                    <i class="fas fa-plus"></i> بدء نقاش جديد
+                </button>
+            </div>
+        </header>
+
+        <!-- الأقسام الرئيسية -->
+        <section class="forum-sections">
+            <!-- شريط البحث والتصفية -->
+            <div class="forum-toolbar">
+                <div class="search-box">
+                    <input type="text" placeholder="ابحث في المنتدى...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="filter-options">
+                    <button class="btn btn-outline active">الكل</button>
+                    <button class="btn btn-outline">النقاشات الساخنة</button>
+                    <button class="btn btn-outline">المواضيع المميزة</button>
+                    <button class="btn btn-outline">المواضيع الجديدة</button>
+                </div>
+            </div>
+
+            <!-- قائمة المواضيع -->
+            <div class="topics-list">
+                <!-- سيتم ملؤها بواسطة JavaScript -->
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>جاري تحميل المواضيع...</p>
+                </div>
+            </div>
+
+            <!-- ترقيم الصفحات -->
+            <div class="pagination">
+                <button class="btn btn-outline" disabled>السابق</button>
+                <button class="btn btn-outline active">1</button>
+                <button class="btn btn-outline">2</button>
+                <button class="btn btn-outline">3</button>
+                <button class="btn btn-outline">التالي</button>
+            </div>
+        </section>
+
+        <!-- الأقسام الجانبية -->
+        <aside class="forum-sidebar">
+            <!-- إحصائيات المنتدى -->
+            <div class="stats-card">
+                <h3>إحصائيات المنتدى</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <span class="stat-value">12,458</span>
+                            <span class="stat-label">عضو</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-comments"></i>
+                        <div>
+                            <span class="stat-value">45,892</span>
+                            <span class="stat-label">نقاش</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-reply"></i>
+                        <div>
+                            <span class="stat-value">189,753</span>
+                            <span class="stat-label">رد</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <span class="stat-value">1,245</span>
+                            <span class="stat-label">مستخدم متصل</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- المواضيع النشطة -->
+            <div class="active-topics">
+                <h3>أحدث النقاشات</h3>
+                <div class="topic-preview">
+                    <a href="#" class="topic-title">من هو أفضل لاعب في الدوري السعودي هذا الموسم؟</a>
+                    <div class="topic-meta">
+                        <span><i class="far fa-user"></i> أحمد محمد</span>
+                        <span><i class="far fa-clock"></i> منذ ساعة</span>
+                    </div>
+                </div>
+                <div class="topic-preview">
+                    <a href="#" class="topic-title">تحليل مباراة الأهلي والهلال القادمة</a>
+                    <div class="topic-meta">
+                        <span><i class="far fa-user"></i> سارة خالد</span>
+                        <span><i class="far fa-clock"></i> منذ 3 ساعات</span>
+                    </div>
+                </div>
+                <div class="topic-preview">
+                    <a href="#" class="topic-title">توقعات تشكيلة المنتخب في كأس العالم</a>
+                    <div class="topic-meta">
+                        <span><i class="far fa-user"></i> محمد علي</span>
+                        <span><i class="far fa-clock"></i> منذ 5 ساعات</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- المسابقات -->
+            <div class="forum-competitions">
+                <div class="section-header">
+                    <h3>المسابقات والتحديات</h3>
+                    <a href="#" class="view-all">عرض الكل</a>
+                </div>
+                
+                <div class="competition-card active">
+                    <div class="competition-header">
+                        <span class="badge active">جارية</span>
+                        <span class="competition-date">ينتهي بعد 3 أيام</span>
+                    </div>
+                    <h4>توقع نتائج مباريات الجولة</h4>
+                    <p>احصل على نقاط لتوقعاتك الصحيحة واربح جوائز قيمة</p>
+                    <div class="competition-stats">
+                        <span><i class="fas fa-users"></i> 245 مشارك</span>
+                        <span><i class="fas fa-trophy"></i> جائزة: اشتراك 3 أشهر</span>
+                    </div>
+                    <button class="btn btn-primary btn-block">شارك الآن</button>
+                </div>
+                
+                <div class="competition-card upcoming">
+                    <div class="competition-header">
+                        <span class="badge upcoming">قريباً</span>
+                        <span class="competition-date">يبدأ بعد يومين</span>
+                    </div>
+                    <h4>مسابقة هداف الدوري</h4>
+                    <p>من سيكون هداف الدوري السعودي هذا الموسم؟</p>
+                    <div class="competition-stats">
+                        <span><i class="far fa-bell"></i> تم التنبيه</span>
+                    </div>
+                    <button class="btn btn-outline btn-block" disabled>قريباً</button>
+                </div>
+                
+                <div class="competition-card">
+                    <div class="competition-header">
+                        <span class="badge">منتهية</span>
+                        <span class="competition-date">انتهت</span>
+                    </div>
+                    <h4>مسابقة كأس الملك</h4>
+                    <p>توقع الفائز بكأس الملك لهذا الموسم</p>
+                    <div class="competition-stats">
+                        <span><i class="fas fa-trophy"></i> الفائز: محمد123</span>
+                    </div>
+                    <button class="btn btn-outline btn-block" disabled>انتهت المسابقة</button>
+                </div>
+            </div>
+            
+            <!-- استطلاع الرأي -->
+            <div class="forum-poll">
+                <h3>استطلاع الرأي</h3>
+                <p>من سيفوز بدوري أبطال آسيا هذا الموسم؟</p>
+                <div class="poll-options">
+                    <div class="poll-option">
+                        <div class="option-text">الهلال</div>
+                        <div class="option-bar">
+                            <div class="option-fill" style="width: 45%"></div>
+                            <span class="option-percent">45%</span>
+                        </div>
+                    </div>
+                    <div class="poll-option">
+                        <div class="option-text">الأهلي</div>
+                        <div class="option-bar">
+                            <div class="option-fill" style="width: 30%"></div>
+                            <span class="option-percent">30%</span>
+                        </div>
+                    </div>
+                    <div class="poll-option">
+                        <div class="option-text">الاتحاد</div>
+                        <div class="option-bar">
+                            <div class="option-fill" style="width: 15%"></div>
+                            <span class="option-percent">15%</span>
+                        </div>
+                    </div>
+                    <div class="poll-option">
+                        <div class="option-text">فريق آخر</div>
+                        <div class="option-bar">
+                            <div class="option-fill" style="width: 10%"></div>
+                            <span class="option-percent">10%</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-outline btn-block">تصويت</button>
+                <div class="poll-total">1,245 صوت</div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- تذييل الصفحة -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>عن ملعبنا</h4>
+                <p>منصة شاملة لمتابعة كرة القدم العربية والعالمية، نقدم آخر الأخبار، النتائج، التحليلات والمزيد.</p>
+            </div>
+            <div class="footer-section">
+                <h4>روابط سريعة</h4>
+                <ul>
+                    <li><a href="#">الرئيسية</a></li>
+                    <li><a href="#">الأخبار</a></li>
+                    <li><a href="#">البطولات</a></li>
+                    <li><a href="#">الفيديوهات</a></li>
+                    <li><a href="#">المنتدى</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>تواصل معنا</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 ملعبنا. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <!-- نموذج إنشاء موضوع جديد -->
+    <div class="modal" id="newThreadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>بدء نقاش جديد</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form id="newThreadForm">
+                <div class="form-group">
+                    <label for="threadTitle">عنوان النقاش</label>
+                    <input type="text" id="threadTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="threadCategory">القسم</label>
+                    <select id="threadCategory" required>
+                        <option value="">اختر القسم</option>
+                        <option value="general">عام</option>
+                        <option value="saudi-league">الدوري السعودي</option>
+                        <option value="egypt-league">الدوري المصري</option>
+                        <option value="champions-league">دوري الأبطال</option>
+                        <option value="world-cup">كأس العالم</option>
+                        <option value="transfers">انتقالات</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="threadContent">المحتوى</label>
+                    <textarea id="threadContent" rows="6" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="cancelThread">إلغاء</button>
+                    <button type="submit" class="btn btn-primary">نشر النقاش</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="assets/js/forum.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+    </script>
+</body>
+</html>

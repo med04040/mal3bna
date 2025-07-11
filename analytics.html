@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التحليلات المتقدمة - ملعبنا</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/analytics.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 dark:text-white">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="index.html" class="flex items-center">
+                <h1 class="text-xl font-bold text-primary">مركز التحليلات المتقدمة</h1>
+            </a>
+            <div class="flex items-center space-x-4 space-x-reverse">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block text-yellow-300"></i>
+                </button>
+                <a href="index.html" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-home ml-2"></i>
+                    الرئيسية
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <section class="mb-12 text-center" data-aos="fade-up">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">التحليلات المتقدمة لكرة القدم</h1>
+            <p class="text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">استكشف أعمق التحليلات والإحصائيات والأرقام القياسية في عالم كرة القدم</p>
+        </section>
+
+        <!-- Analytics Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            <!-- Tactical Analysis -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden" data-aos="fade-up">
+                <div class="p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg text-blue-600 dark:text-blue-300 mr-3">
+                            <i class="fas fa-chess-board text-xl"></i>
+                        </div>
+                        <h2 class="text-xl font-bold">التحليل التكتيكي</h2>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">تحليل مفصل للخطط التكتيكية للفرق والمنتخبات</p>
+                    <a href="#tactical" class="text-blue-600 dark:text-blue-400 hover:underline flex items-center">
+                        تصفح التحليلات
+                        <i class="fas fa-arrow-left mr-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Player Stats -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                <div class="p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-green-100 dark:bg-green-900 p-3 rounded-lg text-green-600 dark:text-green-300 mr-3">
+                            <i class="fas fa-chart-line text-xl"></i>
+                        </div>
+                        <h2 class="text-xl font-bold">إحصائيات اللاعبين</h2>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">أحدث إحصائيات اللاعبين ومقارنات تفصيلية</p>
+                    <a href="#player-stats" class="text-blue-600 dark:text-blue-400 hover:underline flex items-center">
+                        استعرض الإحصائيات
+                        <i class="fas fa-arrow-left mr-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Match Predictions -->
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                <div class="p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-purple-100 dark:bg-purple-900 p-3 rounded-lg text-purple-600 dark:text-purple-300 mr-3">
+                            <i class="fas fa-chart-pie text-xl"></i>
+                        </div>
+                        <h2 class="text-xl font-bold">التوقعات والتنبؤات</h2>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">تحليلات وتوقعات المباريات القادمة بنماذج ذكاء اصطناعي</p>
+                    <a href="#predictions" class="text-blue-600 dark:text-blue-400 hover:underline flex items-center">
+                        شاهد التوقعات
+                        <i class="fas fa-arrow-left mr-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tactical Analysis Section -->
+        <section id="tactical" class="mb-16" data-aos="fade-up">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <i class="fas fa-chess-board text-blue-500 ml-2"></i>
+                    التحليل التكتيكي
+                </h2>
+                <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline flex items-center">
+                    المزيد
+                    <i class="fas fa-arrow-left mr-1"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Tactical Analysis Card 1 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                    <div class="relative h-48 bg-gray-200 dark:bg-gray-700">
+                        <img src="https://via.placeholder.com/800x450/1e3a8a/ffffff?text=تحليل+تكتيكي" alt="تحليل تكتيكي" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                            <div class="bg-white dark:bg-gray-900 p-2 rounded-full">
+                                <i class="fas fa-play text-blue-600 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <span class="text-sm text-blue-600 dark:text-blue-400">تحليل مباراة</span>
+                        <h3 class="font-bold text-lg mb-2">كيف هزمت إسبانيا إيطاليا في يورو 2024؟</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">تحليل مفصل للخطة التكتيكية التي اتبعها المنتخب الإسباني للفوز على إيطاليا</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span><i class="far fa-clock ml-1"></i> 3 أيام مضت</span>
+                            <span class="mr-4"><i class="far fa-eye ml-1"></i> 24.5K</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tactical Analysis Card 2 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                    <div class="relative h-48 bg-gray-200 dark:bg-gray-700">
+                        <img src="https://via.placeholder.com/800x450/1e3a8a/ffffff?text=تحليل+تكتيكي" alt="تحليل تكتيكي" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                            <div class="bg-white dark:bg-gray-900 p-2 rounded-full">
+                                <i class="fas fa-play text-blue-600 text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <span class="text-sm text-blue-600 dark:text-blue-400">تحليل فريق</span>
+                        <h3 class="font-bold text-lg mb-2">الأسرار التكتيكية لنجاح مانشستر سيتي هذا الموسم</h3>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">كيف يطبق جوارديولا فلسفته الكروية مع السيتي؟</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span><i class="far fa-clock ml-1"></i> أسبوع مضى</span>
+                            <span class="mr-4"><i class="far fa-eye ml-1"></i> 18.2K</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Player Stats Section -->
+        <section id="player-stats" class="mb-16" data-aos="fade-up">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <i class="fas fa-chart-line text-green-500 ml-2"></i>
+                    إحصائيات اللاعبين
+                </h2>
+                <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline flex items-center">
+                    المزيد
+                    <i class="fas fa-arrow-left mr-1"></i>
+                </a>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                <div class="p-6">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">اللاعب</th>
+                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">الفريق</th>
+                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">الأهداف</th>
+                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">التسديدات</th>
+                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">دقة التمرير</th>
+                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">الاستحواذ</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full" src="https://img.a.transfermarkt.technology/portrait/medium/8198-1671437856.jpg" alt="كريستيانو رونالدو">
+                                            </div>
+                                            <div class="mr-4">
+                                                <div class="text-sm font-medium text-gray-900 dark:text-white">كريستيانو رونالدو</div>
+                                                <div class="text-sm text-gray-500 dark:text-gray-400">مهاجم</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <img src="https://tmssl.akamaized.net/images/wappen/head/1309.png" alt="النصر" class="h-6 w-6 ml-2">
+                                            <span class="text-sm text-gray-900 dark:text-white">النصر</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">30</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">4.8</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">85%</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">42%</td>
+                                </tr>
+                                <!-- المزيد من الصفوف... -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Predictions Section -->
+        <section id="predictions" class="mb-16" data-aos="fade-up">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold flex items-center">
+                    <i class="fas fa-chart-pie text-purple-500 ml-2"></i>
+                    توقعات المباريات
+                </h2>
+                <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline flex items-center">
+                    المزيد
+                    <i class="fas fa-arrow-left mr-1"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Prediction Card 1 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
+                    <div class="p-4 border-b border-gray-200 dark:border-gray-700">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm text-gray-500 dark:text-gray-400">الدوري السعودي - الجولة 27</span>
+                            <span class="text-xs bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 rounded">غداً 20:00</span>
+                        </div>
+                        <div class="flex items-center justify-between py-2">
+                            <div class="flex items-center">
+                                <img src="https://tmssl.akamaized.net/images/wappen/head/1309.png" alt="النصر" class="h-8 w-8 ml-2">
+                                <span class="font-medium">النصر</span>
+                            </div>
+                            <span class="text-gray-500 dark:text-gray-400">ضد</span>
+                            <div class="flex items-center">
+                                <span class="font-medium">الهلال</span>
+                                <img src="https://tmssl.akamaized.net/images/wappen/head/1026.png" alt="الهلال" class="h-8 w-8 mr-2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <div class="mb-3">
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>فرص الفوز</span>
+                                <span>38% - 62%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                                <div class="bg-gradient-to-r from-red-500 to-blue-500 h-2.5 rounded-full" style="width: 62%"></div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 text-center">
+                            <div class="bg-red-50 dark:bg-gray-700 p-2 rounded">
+                                <div class="text-red-600 dark:text-red-400 font-bold">1.8</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">فوز النصر</div>
+                            </div>
+                            <div class="bg-gray-50 dark:bg-gray-700 p-2 rounded">
+                                <div class="font-bold">3.4</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">تعادل</div>
+                            </div>
+                            <div class="bg-blue-50 dark:bg-blue-900 p-2 rounded">
+                                <div class="text-blue-600 dark:text-blue-400 font-bold">1.5</div>
+                                <div class="text-xs text-gray-500 dark:text-gray-400">فوز الهلال</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- المزيد من بطاقات التوقعات... -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-gray-600 dark:text-gray-300">© 2024 ملعبنا. جميع الحقوق محفوظة.</p>
+                </div>
+                <div class="flex space-x-6 space-x-reverse">
+                    <a href="#" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white">
+                        <i class="fab fa-facebook text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-white">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+    </script>
+</body>
+</html>
